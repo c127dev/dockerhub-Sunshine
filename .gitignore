@@ -1,0 +1,11 @@
+# Development files
+/build/
+/src/
+/build-deps/
+
+# Testing config
+/config-dir/
+
+# Custom patches and configs
+/patches/**/custom-*
+/conf/
