@@ -1,0 +1,74 @@
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV SUNSHINE_REPO=https://github.com/LizardByte/Sunshine.git
+ENV BRANCH=master
+
+RUN apt-get update && apt-get install -y --no-install-recommends --fix-missing \
+    build-essential \
+    cmake \
+    ninja-build \
+    pkg-config \
+    git \
+    curl \
+    ca-certificates \
+    nasm \
+    yasm \
+    glslang-tools \
+    # Required for libva autogen.sh
+    autoconf \
+    automake \
+    libtool \
+    # Sunshine runtime dependencies
+    libcurl4-openssl-dev \
+    libminiupnpc-dev \
+    libavcodec-dev \
+    libavutil-dev \
+    libswscale-dev \
+    libavformat-dev \
+    libnotify-dev \
+    libayatana-appindicator3-dev \
+    libboost-filesystem-dev \
+    libboost-log-dev \
+    libboost-thread-dev \
+    libcap-dev \
+    libevdev-dev \
+    libpulse-dev \
+    libopus-dev \
+    libssl-dev \
+    libnuma-dev \
+    libx11-dev \
+    libxrandr-dev \
+    libxinerama-dev \
+    libxcursor-dev \
+    libxi-dev \
+    libpipewire-0.3-dev \
+    # Critical dependencies to ensure FFmpeg Static builds libavdevice and vaapi
+    libdrm-dev \
+    libva-dev \
+    libvdpau-dev \
+    libxcb1-dev \
+    libxcb-shm0-dev \
+    libxcb-xfixes0-dev \
+    libxcb-shape0-dev \
+    libxcb-dri3-dev \
+    libx11-xcb-dev \
+    libvulkan-dev \
+    libwayland-dev \
+    wayland-protocols \
+    libsdl2-dev \
+    # Extra Tools
+    sudo \
+    ccache \
+    file \
+    # Python Tools
+    python3-jinja2 \
+    python3-setuptools
+
+RUN curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    apt-get install -y nodejs
+
+# Chean up
+RUN rm -rf /var/lib/apt/lists/*
+
+CMD ["/bin/bash"]
